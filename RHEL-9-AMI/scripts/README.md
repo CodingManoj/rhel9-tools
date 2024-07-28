@@ -2,6 +2,6 @@
 
 Base Redhat AMI : 
 ```
-    RHEL-9.4.0_HVM-20240605-x86_64-82-Hourly2-GP3
-    ami-0583d8c7a9c35822c
+    AMI: ami-008e7b65af911ed5c
+    AMI Name: spel-minimal-rhel-9-hvm-2024.02.1beta-01.x86_64-gp3
 ```
