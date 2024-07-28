@@ -1,10 +1,10 @@
-&4Disclaimer:
+Disclaimer:
 
 This image is created only for the purpose of learning DevOps with AWS and is suitable only for lab.
 
 !!! Usage of this AMI on production is not recommended. 
 
-&4Redhat Linux 9 Learning Image - &6 AMI Works with password
+Redhat Linux 9 Learning Image -  AMI Works with password
 
 Turn Off The Server When Not In use - using the below command 
-&6 sudo init 0
+sudo init 0
