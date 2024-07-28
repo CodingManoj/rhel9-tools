@@ -60,11 +60,13 @@ echo "sed -i -e 's/^ec2-user:!!/ec2-user:/' /etc/shadow" >>/etc/rc.d/rc.local
 chmod +x /etc/rc.d/rc.local
 
 echo
-echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDC1WUdkMj2oGj6borVYrJSaZT+Nhx3EfGGoeHPWbTP7F0OLVdh5584QhFXz+WpXvT5S2uDsHT49lstZkYWAKVJVCgrPZzbBtRdiiXRpXNValsCZ73RZUyw6nSfo9L9gLcskVNOdTcHUyaOLlpImAMnp64X6NoxQVT0/4bX21wChQOqeoyyiZr3OD8+z7PrVHmQxTx2r4kIstnsUDsGJjD5tmewmeHd81V+cWugQ5Kmyf9ZgFIuCmLdl+3Qnf81WjMHaI0hKFgG23AyJ6P2sX4Lz2EBXFg2F7iWMDIKpMsd0h++1Q+fEzfcR6e5zcnSi8TRChq2D1JpEZCIaHWIxBNsmpO2z8VzAeSEDIG2MeiJURjUgnegeUUsvqU5ZaEEeh4U4W+IQ8EIb+/mfKk6oJN7s1iKX9E7rinpSApN5tHAeSfqKSbQHeSS5WEZiCBya/Hg8PknjGQ9D9NFDzSfs6OI1+ZwnTHtirnBxN8ufuYZvnWYhElYGQxnNmCyT+ts70c= ec2-user@ip-172-31-34-4.ec2.internal' > /home/ec2-user/.ssh/authorized_keys
-echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC2MytX2MASz/SLfex0jzLOnF4iFkT64jmUXwoOfYssOLHV8idC9Wc6VU1qpXsqJtsihc3ESs9zJEwCgyt60Ih4lx+/KROUZbGGkj4fJmZ6V1bwK70mL66JUyw/q3qcGOWGANJcXl0xYdojZWYFQDZ15vpXCAlRputZ4CbcnYC1RM8zdIE30/n4S1Sl1RaetgFoJf07UBJyWuCisZEdwHUSLHsBuQz4WaxVov9TEaIQCd+WWoU7NEN+JL7qzxc95XfTvDgzy+jwWBIrLHhH3jXm4qby1QtIZuW+Xt3LpK02am+S8JCPiQJnmFX2dTpXo4bMxxd3BN1/2TVfODSNN3IswAecwICFDKz5VsD1fEiCFmcNeO62j/BDN9RBamBP2e2ktebOqCf+uF1S5HISsL+D/KxcQWuQtspKJ/aYQ9q27bzj/wOcmyaQsWsUJNonRzRfIgtVSK1wXk3ho3Mj5VM6iZPAEr7ivNk0PlObDYhtj9xug3ZYQ6KE/x1z+z5SuZ0= root@ip-172-31-36-42.ec2.internal' >> /root/.ssh/authorized_keys
-curl -s https://raw.githubusercontent.com/CodingManoj/rhel9-tools/main/RHEL-9-AMI/scripts/id_rsa > /root/.ssh/id_rsa
-chmod -R 700 /root/.ssh/id_rsa*
-chmod -R 700 /home/ec2-user/.ssh/id_rsa*
+curl -s https://raw.githubusercontent.com/CodingManoj/rhel9-tools/main/RHEL-9-AMI/scripts/e_id_rsa.pub > /home/ec2-user/.ssh/authorized_keys
+curl -s https://raw.githubusercontent.com/CodingManoj/rhel9-tools/main/RHEL-9-AMI/scripts/e_id_rsa > /home/ec2-user/.ssh/id_rsa
+curl -s https://raw.githubusercontent.com/CodingManoj/rhel9-tools/main/RHEL-9-AMI/scripts/r_id_rsa.pub > /root/.ssh/authorized_keys
+curl -s https://raw.githubusercontent.com/CodingManoj/rhel9-tools/main/RHEL-9-AMI/scripts/r_id_rsa > /home/ec2-user/.ssh/id_rsa
+
+chmod -R 700 /root/.ssh/id_rsa* /root/.ssh/authorized_keys
+chmod -R 700 /home/ec2-user/.ssh/id_rsa* /home/ec2-user/.ssh/authorized_keys
 
 sed -i -e 's/showfailed//' /etc/pam.d/postlogin
 sed -i -e '4 i colorscheme desert' /etc/vimrc
@@ -96,6 +98,10 @@ echo ':programname, isequal, "systemd-sysv-generator" /var/log/sysv.log
 curl -s https://raw.githubusercontent.com/CodingManoj/rhel9-tools/main/RHEL-9-AMI/scripts/set-hostname.sh > /bin/set-hostname
 curl -s https://raw.githubusercontent.com/CodingManoj/rhel9-tools/main/RHEL-9-AMI/scripts/mysql_secure_installation  > /usr/sbin/mysql_secure_installation
 chmod +x /bin/set-hostname /usr/sbin/mysql_secure_installation
+
+# Disabling the subscription manager
+sed -i -e 's/enabled=1/enabled=0/' /etc/yum/pluginconf.d/subscription-manager.conf
+sudo yum --disableplugin=subscription-manager update
 
 # Install AWS CLI
 cd /tmp
