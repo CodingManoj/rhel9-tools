@@ -17,7 +17,10 @@ Error :
 4) sudo lsblk   ( This will list the block devices and block device with 30gb is our block device )
 5) Now out of that parition 4 is the one that needs additional storage as it's under /home directory where our goCD is installed.
 6) Increase the partition
-``` sudo growpart /dev/nvme0n1 4```
+``` 
+    $ sudo growpart /dev/nvme0n1 4
+
+```
 7) Now 6xtend the volume of home to 6G from 1G
 
 ```
