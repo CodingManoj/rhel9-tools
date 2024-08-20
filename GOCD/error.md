@@ -5,9 +5,9 @@ If you see an error saying disk space issue, mitigate using the following way:
 Error :
 
 ```
-		!!! GoCD Server's database is running on low disk space18 Aug, 2024 at 23:35:24 Local TimeGoCD has less than 1024M of disk space available to it.
+	!!! GoCD Server's database is running on low disk space18 Aug, 2024 at 23:35:24 Local TimeGoCD has less than 1024M of disk space available to it.
 		
-        !!! GoCD Server's artifact repository is running low on disk space18 Aug, 2024 at 23:35:24 Local TimeGoCD has less than 1024M of disk space available to it
+    !!! GoCD Server's artifact repository is running low on disk space18 Aug, 2024 at 23:35:24 Local TimeGoCD has less than 1024M of disk space available to it
 
 ```
 
