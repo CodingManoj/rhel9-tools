@@ -2,6 +2,9 @@
 
 type minikube &>/dev/null
 if [ $? -ne 0 ]; then
+  growpart /dev/nvme0n1 4 
+  lvextend -l +80%FREE /dev/mapper/RootVG-varVol ; xfs_growfs /var
+  lvextend -l +100%FREE /dev/mapper/RootVG-homeVol ; xfs_growfs /home
   dnf install https://storage.googleapis.com/minikube/releases/latest/minikube-latest.x86_64.rpm -y
 fi
 
