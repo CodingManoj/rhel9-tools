@@ -17,3 +17,4 @@ chmod +x /bin/kubectl
 
 echo "Running the following command - minikube start --force"
 minikube start --force
+
